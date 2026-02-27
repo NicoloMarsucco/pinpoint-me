@@ -8,6 +8,7 @@ from app import main
 
 client = TestClient(main.app)
 
+AUTH_PREFIX = "api/v1"
 
 ###### SIGNUP #######
 
@@ -21,7 +22,7 @@ def test_signup_success():
         mock_get_client.return_value = mock_client
 
         response = client.post(
-            "/signup",
+            f"{AUTH_PREFIX}/signup",
             json={"email": "user@example.com", "password": "securepassword123"}
         )
 
@@ -38,7 +39,7 @@ def test_signup_email_already_registered():
         mock_get_client.return_value = mock_client
 
         response = client.post(
-            "/signup",
+            f"{AUTH_PREFIX}/signup",
             json={"email": "user@example.com", "password": "securepassword123"}
         )
 
@@ -57,7 +58,7 @@ def test_signup_generic_failure():
         mock_get_client.return_value = mock_client
 
         response = client.post(
-            "/signup",
+            f"{AUTH_PREFIX}/signup",
             json={"email": "user@example.com", "password": "securepassword123"}
         )
 
@@ -83,7 +84,7 @@ def test_login_success():
         mock_get_client.return_value = mock_client
 
         response = client.post(
-            "/login",
+            f"{AUTH_PREFIX}/login",
             json={
                 "email": "user@example.com",
                 "password": "securepassword123",
@@ -112,7 +113,7 @@ def test_login_invalid_credentials():
         mock_get_client.return_value = mock_client
 
         response = client.post(
-            "/login",
+            f"{AUTH_PREFIX}/login",
             json={
                 "email": "user@example.com",
                 "password": "wrongpassword",
@@ -128,7 +129,7 @@ def test_login_invalid_credentials():
 def test_login_invalid_email_format():
     """Test validation error for invalid email."""
     response = client.post(
-        "/login",
+        f"{AUTH_PREFIX}/login",
         json={
             "email": "not-an-email",
             "password": "securepassword123",
@@ -141,7 +142,7 @@ def test_login_invalid_email_format():
 def test_login_short_password():
     """Test validation error for short password."""
     response = client.post(
-        "/login",
+        f"{AUTH_PREFIX}/login",
         json={
             "email": "user@example.com",
             "password": "123",

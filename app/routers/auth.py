@@ -4,7 +4,7 @@ import supabase
 from app.core import config
 from app.schemas.auth import SignupRequest, LoginRequest, TokenResponse
 
-router = fastapi.APIRouter()
+router = fastapi.APIRouter(prefix="/api/v1")
 
 
 @router.post("/signup")
