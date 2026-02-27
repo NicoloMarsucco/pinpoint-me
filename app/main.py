@@ -1,6 +1,6 @@
 import fastapi
 
-from app.routers import users
+from app.routers import auth
 
 app = fastapi.FastAPI()
 
@@ -9,4 +9,4 @@ app = fastapi.FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-app.include_router(users.router)
+app.include_router(auth.router)
